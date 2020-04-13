@@ -1,2 +1,2 @@
 # securitySample
-Security for frontendSample
+Security for frontendSample project
