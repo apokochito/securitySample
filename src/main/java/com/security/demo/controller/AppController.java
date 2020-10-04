@@ -14,16 +14,18 @@ public class AppController {
     @Autowired
     public UserRepository userRepository;
 
-    @GetMapping(value = "/users")
-    public String getAllUsers() {
+    @GetMapping(value = "/greeting")
+    public String getAllUsers(@RequestParam(value = "name", defaultValue = "World") String name) {
         // userRepository.findAll();
         // 1. Generating JWT - POST, if a valid user is provided, token will be generated.
         // 2. Validating JWT - GET, return resource if there is a valid JWT token from POST method.
-        return "Hello";
+        return "Hello " + name + " !";
     }
 
+    /*
     @PostMapping(value = "/users", produces = "application/json")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
+     */
 }

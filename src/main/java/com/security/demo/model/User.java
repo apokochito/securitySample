@@ -18,4 +18,6 @@ public class User {
 
     @NotNull(message = "email must not be null")
     private String email;
+
+    private String token;
 }
