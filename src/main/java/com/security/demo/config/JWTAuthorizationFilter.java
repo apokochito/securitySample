@@ -13,9 +13,12 @@ import java.util.stream.Collectors;
 
 public class JWTAuthorizationFilter implements Filter {
 
+    // Authorization process, which is capable of intercepting invocations to protected
+    // resources to recover the token and determine if the client has permissions or not.
+
     // Checks the existence of the token (checkJWTToken(…))
-    //If it exists, it decrypts and validates (validateToken(…))
-    //If everything is ok, it adds the necessary configuration to the Spring context
+    // If it exists, it decrypts and validates (validateToken(…))
+    // If everything is ok, it adds the necessary configuration to the Spring context
     // to authorize the request (setUpStringAuthentication(…)).
 
     private final String PARAM = "Authorization";

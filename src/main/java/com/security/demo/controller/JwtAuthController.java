@@ -5,7 +5,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +30,7 @@ public class JwtAuthController {
     }
 
     private String getJWTToken(String username) {
+
         // We need to build the token, delegating the Jwts in the utility class that
         // includes information about its expiration and a Spring GrantedAuthority object that,
         // as we will see later, will be used to authorize requests to protected resources.

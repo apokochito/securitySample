@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // All calls to the controller /user are allowed, but all other calls require authentication.
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
