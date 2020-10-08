@@ -16,6 +16,9 @@ public class User {
     @NotNull(message = "username must not be null")
     private String username;
 
+    @NotNull(message = "password must not be null")
+    private String password;
+
     @NotNull(message = "email must not be null")
     private String email;
 

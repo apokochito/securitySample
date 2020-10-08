@@ -15,11 +15,13 @@ import java.util.List;
 @RequestMapping("/api/security")
 public class AppController {
 
-    @Autowired
-    public UserRepository userRepository;
+    private UserRepository userRepository;
+    private EmployeesRepository employeesRepository;
 
-    @Autowired
-    public EmployeesRepository employeesRepository;
+    public AppController(UserRepository userRepository, EmployeesRepository employeesRepository) {
+        this.userRepository = userRepository;
+        this.employeesRepository = employeesRepository;
+    }
 
     @GetMapping(value = "/users")
     public List<User> getAllUsers() {

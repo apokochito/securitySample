@@ -2,17 +2,20 @@ package com.security.demo.config;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JWTAuthorizationFilter implements Filter {
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     // Authorization process, which is capable of intercepting invocations to protected
     // resources to recover the token and determine if the client has permissions or not.
@@ -28,8 +31,12 @@ public class JWTAuthorizationFilter implements Filter {
     @Value("${jwt.token.secret}")
     private String SECRET;
 
+    public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
+        super(authenticationManager);
+    }
+
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(HttpServletRequest servletRequest, HttpServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             if (checkJWTToken(servletRequest, servletResponse)) {
                 Claims claims = validateToken(servletRequest);
