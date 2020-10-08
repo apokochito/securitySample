@@ -1,6 +1,7 @@
 package com.security.demo.config;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +24,9 @@ public class JWTAuthorizationFilter implements Filter {
 
     private final String PARAM = "Authorization";
     private final String PREFIX = "demo ";
-    private final String SECRET = "ThisIsASecretKey";
+
+    @Value("${jwt.token.secret}")
+    private String SECRET;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

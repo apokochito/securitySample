@@ -7,17 +7,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Document(collection = "users")
-public class User {
+@Document(collection = "employees")
+public class Employee {
 
     @Id
     private String _id;
 
-    @NotNull(message = "username must not be null")
-    private String username;
+    @NotNull(message = "firstname must not be null")
+    private String firstname;
+
+    @NotNull(message = "lastname must not be null")
+    private String lastname;
 
     @NotNull(message = "email must not be null")
     private String email;
 
-    private String token;
+    @NotNull(message = "salary must not be null")
+    private String salary;
+
+    //Token???
+
 }
