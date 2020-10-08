@@ -15,4 +15,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	// This project supports authentication and authorization
+	// Authorization - JWT Filter - Users credentials
+	// Authentication - JWT Filter - Validate contatining JWTs
 }
