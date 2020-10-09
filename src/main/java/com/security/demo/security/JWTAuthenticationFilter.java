@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.demo.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,15 +26,11 @@ import static com.security.demo.constants.Constants.*;
 @Slf4j
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    //private final String HEADER = "Authorization";
-    //private final String PREFIX = "demo ";
-
-    @Value("${jwt.token.secret}")
-    private String SECRET_KEY;
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+
         // Login page
         setFilterProcessesUrl("/access/login");
     }
@@ -42,11 +39,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             User credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
+
             // We parse the user's credentials and issue them to the AuthenticationManager
-            log.info("Credentials - " + credentials);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword(), new ArrayList<>()));
+
             // Principal - credentials.getUsername()
             // Credentials - credentials.getPassword()
+
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -55,7 +54,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // A user successfully logs in. We use this method to generate a JWT for this user.
-        String token = JWT.create().withSubject((String) authResult.getPrincipal()).withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME)).sign(Algorithm.HMAC512(SECRET_KEY));
+        String token = JWT.create()
+                .withSubject(authResult.getPrincipal().toString())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SECRET_KEY));
+        log.info("TOKEN - " + token);
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 }
