@@ -20,12 +20,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.usersDetailsService = usersDetailsService;
     }
 
-    public WebSecurity(boolean disableDefaults, BCryptPasswordEncoder bCryptPasswordEncoder, UsersDetailsService usersDetailsService) {
-        super(disableDefaults);
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.usersDetailsService = usersDetailsService;
-    }
-
     // All calls to the controller /user are allowed, but all other calls require authentication.
 
     @Override
@@ -37,7 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usersDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 }

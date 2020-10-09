@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.demo.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import java.util.Date;
 
 import static com.security.demo.constants.Constants.*;
 
+@Slf4j
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     //private final String HEADER = "Authorization";
@@ -32,15 +34,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        //setFilterProcessesUrl();
+        // Login page
+        setFilterProcessesUrl("/access/login");
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         try {
             User credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
             // We parse the user's credentials and issue them to the AuthenticationManager
+            log.info("Credentials - " + credentials);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword(), new ArrayList<>()));
             // Principal - credentials.getUsername()
             // Credentials - credentials.getPassword()

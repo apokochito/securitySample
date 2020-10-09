@@ -22,20 +22,10 @@ public class JwtAuthController {
 
     @PostMapping("/singup")
     public String singUp(@RequestBody User user) {
-
         // What if someone catch the password before this step?
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "User Registered";
-    }
-
-    @PostMapping("/login")
-    public User login(@RequestBody User user) {
-
-        // What if someone catch the password before this step?
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return user;
     }
 
 }
