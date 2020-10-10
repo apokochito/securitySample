@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.demo.model.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,10 +26,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private AuthenticationManager authenticationManager;
 
+    // Filter responsible for authenticating users
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
 
-        // Login page
+        // Login url configured
         setFilterProcessesUrl("/access/login");
     }
 
@@ -38,14 +38,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             User credentials = new ObjectMapper().readValue(request.getInputStream(), User.class);
-
+            log.info("JWTAuthenticationFilter - Credentials received");
             // We parse the user's credentials and issue them to the AuthenticationManager
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword(), new ArrayList<>()));
 
             // Principal - credentials.getUsername()
             // Credentials - credentials.getPassword()
-
-        } catch (IOException e) {
+        } catch (IOException ex) {
+            log.error(ex.getMessage());
             throw new RuntimeException();
         }
     }
@@ -57,7 +57,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(authResult.getPrincipal().toString())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET_KEY));
+        log.info("JWTAuthenticationFilter - Token created");
         response.getWriter().write(TOKEN_PREFIX + token);
-
     }
 }

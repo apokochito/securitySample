@@ -25,6 +25,4 @@ public class Employee {
     @NotNull(message = "salary must not be null")
     private String salary;
 
-    //Token???
-
 }

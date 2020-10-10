@@ -2,9 +2,11 @@ package com.security.demo.controller;
 
 import com.security.demo.model.User;
 import com.security.demo.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @CrossOrigin
 @RequestMapping("/access")
@@ -18,14 +20,16 @@ public class JwtAuthController {
         this.userRepository = userRepository;
     }
 
-    // REST controller to implement the authentication process through a username/password login
-
+    // Create user route
     @PostMapping("/singup")
     public String singUp(@RequestBody User user) {
-        // What if someone catch the password before this step?
+        // Encode password
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        log.info("Controller - Password encoded");
+        // Save user into database
         userRepository.save(user);
-        return "User Registered";
+        log.info("Controller - User saved");
+        return "User registered, welcome!";
     }
 
 }
