@@ -38,3 +38,5 @@ Postman requests available at src/main/resources/static/.
     
     Signature - Take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. // The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is.
     
+##### JWT vs OAUT2: JWT is just a token format, OAuth 2.0 is a protocol (that may use a JWT as a token format.
+  
