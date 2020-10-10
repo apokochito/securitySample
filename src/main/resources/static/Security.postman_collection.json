@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "b41e15c5-0bf4-4379-b628-d772abc58633",
+		"name": "Security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get resources",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJvcmcuc3ByaW5nZnJhbWV3b3JrLnNlY3VyaXR5LmNvcmUudXNlcmRldGFpbHMuVXNlciBbVXNlcm5hbWU9Z3JlY2lhMDUsIFBhc3N3b3JkPVtQUk9URUNURURdLCBFbmFibGVkPXRydWUsIEFjY291bnROb25FeHBpcmVkPXRydWUsIGNyZWRlbnRpYWxzTm9uRXhwaXJlZD10cnVlLCBBY2NvdW50Tm9uTG9ja2VkPXRydWUsIEdyYW50ZWQgQXV0aG9yaXRpZXM9W11dIiwiZXhwIjoxNjAyMjE1ODMwfQ.JfQDTVrVF0fNqFMddJ5WgCw2jgbBh04YMFnwcVDIuZwbLjZJXlEIG_P7ZjVOKolHM4-Mj3-yGmeGMvToHbFLAw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/resources/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"resources",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"cesar09\",\r\n    \"password\":\"thisismypassword\",\r\n    \"email\":\"cesar09@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/access/singup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"access",
+						"singup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"grecia05\",\r\n    \"password\":\"password\",\r\n    \"email\":\"grecia05@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/access/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"access",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
