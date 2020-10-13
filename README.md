@@ -12,7 +12,7 @@ Postman requests available at src/main/resources/static/.
     - Login (POST)
     - Create User (POST)
     
-## Project Structure
+#### Project Structure
 
 - FrontendSample // https://github.com/apokochito/frontendSample
 - BackendSample // https://github.com/apokochito/backendSample
