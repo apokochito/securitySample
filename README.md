@@ -12,6 +12,13 @@ Postman requests available at src/main/resources/static/.
     - Login (POST)
     - Create User (POST)
     
+## Project Structure
+
+- FrontendSample // https://github.com/apokochito/frontendSample
+- BackendSample // https://github.com/apokochito/backendSample
+- SecuritySample // This repository
+- ValidationJobSample // https://github.com/apokochito/validationJobSample
+    
 #### Description
 	
 ##### 1 Scenario (master branch)
