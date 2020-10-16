@@ -1,4 +1,4 @@
-# securitySample
+# securitySample for a weeklyPlanner
 Security sample project using JWT (JSON Web Token)
 
 Postman requests available at src/main/resources/static/.
